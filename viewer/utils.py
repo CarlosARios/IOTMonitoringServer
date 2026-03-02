@@ -65,8 +65,8 @@ def get_last_week_data(user, city, state, country):
                 reg.length for reg in raw_data
             )
             result[measure.name] = {
-                "min": minVal if minVal != None else 0,
-                "max": maxVal if maxVal != None else 0,
+                "min": round(minVal, 2) if minVal != None else 0,
+                "max": round(maxVal, 2) if maxVal != None else 0,
                 "avg": round(avgVal if avgVal != None else 0, 2),
                 "data": data,
             }

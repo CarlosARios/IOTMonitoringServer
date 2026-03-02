@@ -24,12 +24,24 @@ def get_coordinates(city: str, state: str, country: str) -> Tuple[float, float]:
     country = ' '.join(country.split('+'))
     url = f'https://geocode.xyz/{city},{state},{country}?json=1'
 
-    r = requests.get(url)
-    if r.status_code == 200:
-        lat = r.json().get('latt', 0)
-        lng = r.json().get('longt', 0)
-        lat = float(lat)
-        lng = float(lng)
+    try:
+        r = requests.get(url, timeout=8)
+        if r.status_code != 200:
+            return lat, lng
+
+        payload = r.json()
+        raw_lat = payload.get('latt', None)
+        raw_lng = payload.get('longt', None)
+
+        try:
+            lat = float(raw_lat) if raw_lat is not None else None
+            lng = float(raw_lng) if raw_lng is not None else None
+        except (TypeError, ValueError):
+            return None, None
+
+    except Exception:
+        return None, None
+
     return lat, lng
 
 
