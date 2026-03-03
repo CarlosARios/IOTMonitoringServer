@@ -41,9 +41,10 @@ def get_last_week_data(user, city, state, country):
             print("LAST_WEEK: Filtering measure: ", measure)
             # time__gte=start.date() Filtro para último día
             start_ts = int(start.timestamp() * 1000000)
-            raw_data = Data.objects.filter(
+            raw_data = list(Data.objects.filter(
                 station=stationO, time__gte=start_ts, measurement=measure
-            ).order_by("-base_time")[:2]
+            ).order_by("-base_time")[:2])
+            raw_data.reverse()
             print("LAST_WEEK: Raw data: ", len(raw_data))
             data = []
             for reg in raw_data:
