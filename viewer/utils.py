@@ -13,6 +13,7 @@ def get_measurements():
 
 def get_last_week_data(user, city, state, country):
     result = {}
+    measurementsO = []
     start = datetime.now()
     start = start - dateutil.relativedelta.relativedelta(days=1)
     try:
@@ -60,15 +61,17 @@ def get_last_week_data(user, city, state, country):
                         )
                     )
 
-            minVal = raw_data.aggregate(Min("min_value"))["min_value__min"]
-            maxVal = raw_data.aggregate(Max("max_value"))["max_value__max"]
-            avgVal = sum(reg.avg_value * reg.length for reg in raw_data) / sum(
-                reg.length for reg in raw_data
-            )
+            minVal = min((reg.min_value for reg in raw_data if reg.min_value is not None), default=0)
+            maxVal = max((reg.max_value for reg in raw_data if reg.max_value is not None), default=0)
+            total_length = sum(reg.length for reg in raw_data)
+            avgVal = (
+                sum(reg.avg_value * reg.length for reg in raw_data if reg.avg_value is not None)
+                / total_length
+            ) if total_length > 0 else 0
             result[measure.name] = {
-                "min": round(minVal, 2) if minVal != None else 0,
-                "max": round(maxVal, 2) if maxVal != None else 0,
-                "avg": round(avgVal if avgVal != None else 0, 2),
+                "min": round(minVal, 2),
+                "max": round(maxVal, 2),
+                "avg": round(avgVal, 2),
                 "data": data,
             }
     except Exception as error:
