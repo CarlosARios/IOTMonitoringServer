@@ -1,0 +1,2 @@
+# Video
+https://uniandes-my.sharepoint.com/:v:/g/personal/c_riosp_uniandes_edu_co/IQD_9QZTu5x3RqkTm8T_6kAeAXUi2jAq9JMA8PF7XYuIMmk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=7cQd6Y
