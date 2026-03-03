@@ -37,8 +37,14 @@ def analyze_data():
         alert = False
 
         variable = item["measurement__name"]
-        max_value = item["measurement__max_value"] or 0
-        min_value = item["measurement__min_value"] or 0
+        raw_max_value = item["measurement__max_value"]
+        raw_min_value = item["measurement__min_value"]
+
+        if raw_max_value is None and raw_min_value is None:
+            continue
+
+        max_value = raw_max_value if raw_max_value is not None else float("inf")
+        min_value = raw_min_value if raw_min_value is not None else float("-inf")
 
         country = item['station__location__country__name']
         state = item['station__location__state__name']
